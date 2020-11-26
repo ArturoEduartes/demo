@@ -10,7 +10,6 @@ plugins {
 
 group = "com.example"
 version = "0.0.1-SNAPSHOT"
-java.sourceCompatibility = JavaVersion.VERSION_11
 
 repositories {
 	mavenCentral()
@@ -37,10 +36,21 @@ tasks.withType<Test> {
 tasks.withType<KotlinCompile> {
 	kotlinOptions {
 		freeCompilerArgs = listOf("-Xjsr305=strict")
-		jvmTarget = "11"
+		jvmTarget = "1.8"
 	}
 }
 tasks.named<Jar>("jar") {
 	enabled = true
 	archiveClassifier.set("production")
 }
+
+tasks.register<Copy>("stage"){
+	dependsOn("clean", "build")
+	tasks.findByName("build")?.mustRunAfter("clean")
+	//dependsOn("clean")
+	//dependsOn("build")
+	from(file("$buildDir/libs/demo-0.0.1-SNAPSHOT.jar"))
+	into(file("$rootDir/libs"))
+	rename("demo-0.0.1-SNAPSHOT.jar", "app.jar")
+}
+

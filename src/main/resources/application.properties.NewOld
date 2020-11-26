@@ -1,0 +1,9 @@
+spring.datasource.url=jdbc:mysql://remotemysql.com:3306/tjMqgYOVqy
+spring.datasource.username=tjMqgYOVqy
+spring.datasource.password=rq5YslKAcb
+spring.datasource.driver-class-name=com.mysql.jdbc.Driver
+spring.jpa.generate-ddl=off
+# Opcion para crear tablas al inicio spring.jpa.hibernate.ddl-auto=none
+# Perfil de desarrollo
+spring.profiles.active=dev
+server.port=${PORT:8080}
