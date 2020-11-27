@@ -47,10 +47,10 @@ tasks.named<Jar>("jar") {
 tasks.register<Copy>("stage"){
 	dependsOn("clean", "build")
 	tasks.findByName("build")?.mustRunAfter("clean")
-	//dependsOn("clean")
-	//dependsOn("build")
 	from(file("$buildDir/libs/demo-0.0.1-SNAPSHOT.jar"))
-	into(file("$rootDir/libs"))
+	into(file("$rootDir"))
 	rename("demo-0.0.1-SNAPSHOT.jar", "app.jar")
 }
-
+tasks.getByName("clean") {
+	project.file("app.jar").delete()
+}
