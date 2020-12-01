@@ -3,4 +3,6 @@ ARG JAR_FILE=build/libs/*.jar
 COPY ${JAR_FILE} app.jar
 RUN adduser -D MyUser
 USER MyUser
-ENTRYPOINT ["java","-jar","/app.jar"]
+#ENV JAVA_OPTS="-Xmx300m"
+CMD [ "sh", "-c", "java $JAVA_OPTS -Dserver.port=$PORT -jar /app.jar" ]
+# ENTRYPOINT ["java","$JAVA_OPTS","-Dserver.port=$PORT","-jar","/app.jar"]
